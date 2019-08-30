@@ -4,6 +4,7 @@
 COMMON_PROMPT_SYMBOL="❯"
 
 # Colors
+COMMON_COLORS_TIME=blue
 COMMON_COLORS_HOST_ME=green
 COMMON_COLORS_HOST_AWS_VAULT=yellow
 COMMON_COLORS_CURRENT_DIR=blue
@@ -19,11 +20,16 @@ COMMON_COLORS_BG_JOBS=yellow
  PROMPT='$(common_host)$(common_current_dir)$(common_bg_jobs)$(common_return_status)'
 
 # Right Prompt
- RPROMPT='$(common_git_status)'
+ RPROMPT='$(common_git_status)$(common_time)'
 
 # Prompt with current SHA
 # PROMPT='$(common_host)$(common_current_dir)$(common_bg_jobs)$(common_return_status)'
 # RPROMPT='$(common_git_status) $(git_prompt_short_sha)'
+
+# Time
+common_time() {
+  echo -n "%{$fg[$COMMON_COLORS_TIME]%} [%T]%{$reset_color%}"
+}
 
 # Host
 common_host() {
@@ -42,7 +48,7 @@ common_host() {
 
 # Current directory
 common_current_dir() {
-  echo -n "%{$fg[$COMMON_COLORS_CURRENT_DIR]%}%c "
+  echo -n "%{$fg[$COMMON_COLORS_CURRENT_DIR]%}$(shrink_path -t -l) "
 }
 
 # Prompt symbol
